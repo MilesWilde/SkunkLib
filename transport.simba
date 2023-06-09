@@ -65,7 +65,7 @@ begin
   raise 'No teleport has a path connecting to destination ' + ToStr(destination);
 end;
 
-procedure TUniversalTransport.run(MaxActions: Int32; MaxTime: Int64; destination: TPoint);
+procedure TUniversalTransport.run(destination: TPoint);
 var
   transport: TUniversalTransport;
   teleportLocation: TTeleportLocation;
@@ -156,5 +156,5 @@ var
   transport: TUniversalTransport;
   destination: TPoint := [8040, 2540];
 begin
-  transport.run(1000, 100000, destination);
+  transport.run(destination);
 end;
