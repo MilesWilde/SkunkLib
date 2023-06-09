@@ -8,10 +8,12 @@
 {$include_once SRL-T/osr.simba}
 {$include_once WaspLib/osr.simba}
 {$include_once ./records.simba}
-{$include_once ./teleport_data.simba}
+{$include_once ./rsteleports.simba}
 
 type
   TUniversalTransport = record (TBaseBankScript)
+    destination: TPoint;
+  end;
 
 procedure TAntiban.Setup(); override;
 begin
@@ -63,7 +65,7 @@ begin
   raise 'No teleport has a path connecting to destination ' + ToStr(destination);
 end;
 
-procedure TUniversalTransport.run(MaxActions: Int32; MaxTime: Int64, destination: TPoint;);
+procedure TUniversalTransport.run(MaxActions: Int32; MaxTime: Int64; destination: TPoint);
 var
   transport: TUniversalTransport;
   teleportLocation: TTeleportLocation;
@@ -74,11 +76,11 @@ begin
   WriteLn 'Ideal teleport found to be:';
   WriteLn teleportLocation;
   case teleportLocation.teleportType of
-    ETeleportType.JEWELLERY: didTeleport := transport.handleJewelleryTeleport(teleportLocation, destination);
+    ETeleportType.JEWELLERY: didTeleport := transport.handleJewelleryTeleport(teleportLocation);
     ETeleportType.ANCIENT_MAGICKS,
     ETeleportType.ARCEUUS_MAGIC,
     ETeleportType.LUNAR_MAGIC,
-    ETeleportType.NORMAL_MAGIC: didTeleport := transport.handleMagicTeleport(teleportLocation, destination);
+    ETeleportType.NORMAL_MAGIC: didTeleport := transport.handleMagicTeleport(teleportLocation);
   end
   if didTeleport then
     transport.RSW.WebWalk(destination);

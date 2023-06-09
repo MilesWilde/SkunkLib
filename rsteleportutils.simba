@@ -196,20 +196,13 @@ begin
     setupTeleportLocation(ETeleportType.OTHER, "Teleport crystal", "Prifddinas", [3264, 6065]),
     setupTeleportLocation(ETeleportType.OTHER, "Drakan's medallion", "Ver Sinhaza", [3649, 3230]),
     setupTeleportLocation(ETeleportType.OTHER, "Drakan's medallion", "Darkmeyer", [3592, 3337]),
-
-    // Wilderness
-    setupTeleportLocation(ETeleportType.OTHER, "Obelisk", "13", [3156, 3620]),
-    setupTeleportLocation(ETeleportType.OTHER, "Obelisk", "19", [3227, 3667]),
-    setupTeleportLocation(ETeleportType.OTHER, "Obelisk", "27", [3035, 3732]),
-    setupTeleportLocation(ETeleportType.OTHER, "Obelisk", "35", [3106, 3794]),
-    setupTeleportLocation(ETeleportType.OTHER, "Obelisk", "44", [2980, 3866]),
-    setupTeleportLocation(ETeleportType.OTHER, "Obelisk", "50", [3307, 3916])
+    setupTeleportLocation(ETeleportType.OTHER, "Ardougne Cloak", "Monastery", [2606, 3222]),
+    setupTeleportLocation(ETeleportType.OTHER, "Ardougne Cloak", "Farm", [2673, 3375])
 //    setupTeleportLocation(ETeleportType.OTHER, "Wilderness crabs teleport", [3348, 3783]),
 //    setupTeleportLocation(ETeleportType.OTHER, "Canoe (No departure)", "35", [3141, 3796]),
 //
 //    // Achievement Diary and Combat Achievements
-//    setupTeleportLocation(ETeleportType.OTHER, "Ardougne Cloak", "Monastery", [2606, 3222]),
-//    setupTeleportLocation(ETeleportType.OTHER, "Ardougne Cloak", "Farm", [2673, 3375]),
+   
 //    setupTeleportLocation(ETeleportType.OTHER, "Explorer's Ring", [3052, 3292]),
 //    setupTeleportLocation(ETeleportType.OTHER, "Karamja Gloves", "Gem Mine (Underground)", [2827, 2997]),
 //    setupTeleportLocation(ETeleportType.OTHER, "Karamja Gloves", "Duradel", [2870, 2981]),
