@@ -1,0 +1,158 @@
+ {$UNDEF SCRIPT_ID}
+{$DEFINE SCRIPT_ID := 'a398a123-63fd-4f13-936b-3963354fb4c1'}
+{$UNDEF SCRIPT_REVISION}
+{$DEFINE SCRIPT_REVISION := '1'}
+{$IFDEF WINDOWS}
+{$DEFINE SCRIPT_GUI}
+{$ENDIF}
+{$include_once SRL-T/osr.simba}
+{$include_once WaspLib/osr.simba}
+{$include_once ./records.simba}
+{$include_once ./teleport_data.simba}
+
+type
+  TUniversalTransport = record (TBaseBankScript)
+
+procedure TAntiban.Setup(); override;
+begin
+  self.Skills := [ERSSkill.TOTAL, ERSSkill.FLETCHING];
+  self.MinZoom := 5;
+  self.MaxZoom := 20;
+  inherited;
+end;
+
+procedure TUniversalTransport.Init(MaxActions: Int32; MaxTime: Int64; destination: TPoint); overload;
+var
+  destinationRegion: TRSNamedRegion := self.getContainingRegion(destination);
+  regions: TBoxArray := [RSRegions.GRAND_EXCHANGE, destinationRegion.Bounds];
+begin
+  WriteLn('Initializing ', destinationRegion.Name);
+  self.Init(MaxActions, MaxTime);
+  self.RSW.Setup(regions);
+  self.RSW.WebGraph := WaspWeb;
+  self.RSW.AdaptiveWalk := True;
+  Mouse.Speed := 28;
+  Mouse.MissChance := 1;
+  Mouse.Distribution := MOUSE_DISTRIBUTION_GAUSS;
+end;
+
+function TUniversalTransport.getContainingRegion(destination: TPoint): TRSNamedRegion;
+var
+  region: TRSNamedRegion;
+begin
+  for region in RSNamedRegionsArray do
+  begin
+    if region.Bounds.Contains(destination) then
+      Exit(region);
+  end;
+end;
+
+// gets closest teleport to destination that has a connecting path nearby
+function TUniversalTransport.getIdealTeleport(destination: TPoint): TTeleportLocation;
+var
+  currentClosest: TTeleportLocation;
+  pathBetween: TPointArray;
+begin
+  for currentClosest in sortTeleportsByDistance(destination, RSTeleportsArray) do
+  begin
+    pathBetween := self.rsw.WebGraph.PathBetween(destination, currentClosest.worldPoint);
+    if pathBetween.Len() > 0 then
+      Exit(currentClosest);
+  end;
+
+  raise 'No teleport has a path connecting to destination ' + ToStr(destination);
+end;
+
+procedure TUniversalTransport.run(MaxActions: Int32; MaxTime: Int64, destination: TPoint;);
+var
+  transport: TUniversalTransport;
+  teleportLocation: TTeleportLocation;
+  didTeleport: Boolean;
+begin
+  transport.Init(1000, 100000, destination);
+  teleportLocation := transport.getIdealTeleport(destination);
+  WriteLn 'Ideal teleport found to be:';
+  WriteLn teleportLocation;
+  case teleportLocation.teleportType of
+    ETeleportType.JEWELLERY: didTeleport := transport.handleJewelleryTeleport(teleportLocation, destination);
+    ETeleportType.ANCIENT_MAGICKS,
+    ETeleportType.ARCEUUS_MAGIC,
+    ETeleportType.LUNAR_MAGIC,
+    ETeleportType.NORMAL_MAGIC: didTeleport := transport.handleMagicTeleport(teleportLocation, destination);
+  end
+  if didTeleport then
+    transport.RSW.WebWalk(destination);
+end;
+
+function TUniversalTransport.handleJewelleryTeleport(teleportLocation: TTeleportLocation): Boolean;
+var
+  chargedJewellery: String;
+  chargedVariants: TStringArray := getChargedJewelleryNames(teleportLocation.item);
+begin
+  for chargedJewellery in chargedVariants do
+  begin
+    WriteLn("Searching for ", chargedJewellery);
+    if Inventory.ContainsItem(chargedJewellery) then
+    begin
+      WriteLn("Searching for ", chargedJewellery, " Rub");
+      Inventory.ClickItem(chargedJewellery, "Rub");
+      WriteLn("Clicking ", teleportLocation.destination);
+      if Chat.ClickOption(teleportLocation.destination, True) then
+        Exit(True);
+    end
+  end
+
+  for chargedJewellery in chargedVariants do
+  begin
+    WriteLn('Opening Equipment');
+    Equipment.Open();
+    if Equipment.ContainsItem(chargedJewellery) then
+    begin
+      WriteLn("Clicking ", chargedJewellery, " Rub");
+      Inventory.ClickItem(chargedJewellery, "Rub");
+      WriteLn("Clicking ", teleportLocation.destination);
+      if Chat.ClickOption(teleportLocation.destination, True) then
+        Exit(True);
+    end;
+  end;
+  for chargedJewellery in chargedVariants do
+  begin
+    WriteLn('Opening Bank');
+    Bank.WalkOpen();
+    if WaitUntil(self.Withdraw([chargedJewellery, 1, False]), 200, 5000) then
+    begin
+      WaitUntil(Bank.Close(True), 200, 5000);
+      WriteLn("Clicking ", chargedJewellery, " Rub from Inventory");
+      Inventory.ClickItem(chargedJewellery, "Rub");
+      WriteLn("Clicking ", teleportLocation.destination);
+      if WaitUntil(Chat.ClickOption(teleportLocation.destination, True), 200, 5000) then
+        Exit(True);
+    end;
+  end;
+end;
+
+function TUniversalTransport.handleMagicTeleport(teleportLocation: TTeleportLocation): Boolean;
+var
+  teleportTabName: String := teleportLocation.destination.Lower() + " teleport";
+begin
+  WriteLn 'Looking for ' + teleportTabName;
+  if Inventory.ClickItem(teleportTabName) then
+    Exit(True);
+
+  WriteLn('Opening Bank');
+  Bank.WalkOpen();
+  if WaitUntil(self.Withdraw([teleportTabName, 1, False]), 200, 5000) then
+  begin
+    WaitUntil(Bank.Close(True), 200, 5000);
+    WriteLn("Clicking ", teleportTabName);
+    if Inventory.ClickItem(teleportTabName) then
+      Exit(True);
+  end;
+end;
+
+var 
+  transport: TUniversalTransport;
+  destination: TPoint := [8040, 2540];
+begin
+  transport.run(1000, 100000, destination);
+end;

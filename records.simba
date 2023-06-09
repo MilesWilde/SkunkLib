@@ -1,0 +1,31 @@
+type
+  TItemAmount = record
+      name: String;
+      amount: Int32;
+    end;
+  TItemAmountArray = array of TItemAmount;
+  TScriptRecipe = record
+    items: TItemAmountArray;
+    msPerAction, actions, levelRequired: Int32;
+    skill: ERSSkill;
+    product: String;
+  end;
+  TScriptRecipeArray = array of TScriptRecipe;
+  TSkunkScript = record (TBaseBankScript)
+    actions: TScriptRecipeArray;
+    startLocation: TPoint;
+  end;
+
+function TScriptRecipe.tool(): String;
+begin
+  Exit(self.items[0].name);
+end;
+
+function TScriptRecipe.item1(): String;
+begin
+  Exit(self.items[1].name);
+end;
+function TScriptRecipe.item1Amount(): Int32;
+begin
+  Exit(self.items[1].amount);
+end;
