@@ -23,14 +23,14 @@ type
   TTeleportJewellery = record
     unchargedID: Int32;
     chargedIDs: TIntegerArray;
-    unchargedName: String;
-    chargedNames: TStringArray;
+    unchargedName: TRSItem;
+    chargedNames: TRSItemArray;
   end;
 
-function setupTeleportJewellery(unchargedName: String; chargedNames: TStringArray): TTeleportJewellery;
+function setupTeleportJewellery(unchargedName: TRSItem; chargedName: TRSItem): TTeleportJewellery;
 begin
   result.unchargedName := unchargedName;
-  result.chargedNames := chargedNames;
+  result.chargedNames := chargedName.GetArray();
 end;
 
 function setupTeleportLocation(teleportType: ETeleportType; destination: String; level: Int32; worldPoint: TPoint): TTeleportLocation;
@@ -224,18 +224,19 @@ end;
 function getTeleportJewellery(): array of TTeleportJewellery;
 begin
   Result := [
-    setupTeleportJewellery('amulet of glory', ['amulet of glory(1)', 'amulet of glory(2)', 'amulet of glory(3)', 'amulet of glory(4)', 'amulet of glory(5)', 'amulet of glory(6)']),
-    setupTeleportJewellery('ring of wealth', ['ring of wealth (1)', 'ring of wealth (2)', 'ring of wealth (3)', 'ring of wealth (4)', 'ring of wealth (5)']),
-    setupTeleportJewellery('skills necklace', ['skills necklace(1)', 'skills necklace(2)', 'skills necklace(3)', 'skills necklace(4)', 'skills necklace(5)', 'skills necklace(6)']),
-    setupTeleportJewellery('combat bracelet', ['combat bracelet(1)', 'combat bracelet(2)', 'combat bracelet(3)', 'combat bracelet(4)', 'combat bracelet(5)', 'combat bracelet(6)']),
-    setupTeleportJewellery('ring of dueling', ['ring of dueling(1)', 'ring of dueling(2)', 'ring of dueling(3)', 'ring of dueling(4)', 'ring of dueling(5)', 'ring of dueling(6)', 'ring of dueling(7)', 'ring of dueling(8)']),
-    setupTeleportJewellery('slayer ring', ['slayer ring (1)', 'slayer ring (2)', 'slayer ring (3)', 'slayer ring (4)', 'slayer ring (5)', 'slayer ring (6)', 'slayer ring (7)', 'slayer ring (8)']),
-    setupTeleportJewellery('digsite pendant', ['digsite pendant (1)', 'digsite pendant (2)', 'digsite pendant (3)', 'digsite pendant (4)', 'digsite pendant (5)']),
-    setupTeleportJewellery('necklace of passage', ['necklace of passage(1)', 'necklace of passage(2)', 'necklace of passage(3)', 'necklace of passage(4)', 'necklace of passage(5)'])
-  ]
+    setupTeleportJewellery('amulet of glory', 'amulet of glory(1..6)'),
+    setupTeleportJewellery('ring of wealth', 'ring of wealth (1..5)'),
+    setupTeleportJewellery('skills necklace', 'skills necklace(1..6)'),
+    setupTeleportJewellery('combat bracelet', 'combat bracelet(1..6)'),
+    setupTeleportJewellery('ring of dueling', 'ring of dueling(1..8)'),
+    setupTeleportJewellery('slayer ring', 'slayer ring (1..8)'),
+    setupTeleportJewellery('digsite pendant', 'digsite pendant (1..5)'),
+    setupTeleportJewellery('necklace of passage', 'necklace of passage(1..5)'),
+    setupTeleportJewellery('games necklace', 'games necklace(1..8)')
+  ];
 end;
 
-function getChargedJewelleryNames(unchargedName: String): TStringArray;
+function getChargedJewelleryNames(unchargedName: String): TRSItemArray;
 var
   jewellery: TTeleportJewellery;
 begin

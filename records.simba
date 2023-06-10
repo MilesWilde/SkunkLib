@@ -1,3 +1,5 @@
+{$include_once WaspLib/osr.simba}
+
 type
   TItemAmount = record
       name: String;
@@ -11,10 +13,31 @@ type
     product: String;
   end;
   TScriptRecipeArray = array of TScriptRecipe;
+
+  // if using a TSkunkscript these all must be set
   TSkunkScript = record (TBaseBankScript)
-    actions: TScriptRecipeArray;
+    recipes: TScriptRecipeArray;
     startLocation: TPoint;
+    skill: ERSSkill;
+    maxToPurchase, minToPurchase: Int32;
   end;
+
+function TSkunkScript.getIdealRecipe(): TScriptRecipe;
+var
+  recipe: TScriptRecipe;
+  skillLevel: Int32 := BaseStats.GetCurrentLevel(self.skill);
+begin
+  for recipe in self.recipes do
+  begin
+    if recipe.criterionSatisfied(skillLevel) then
+      Exit(recipe);
+  end;
+end;
+
+function TScriptRecipe.criterionSatisfied(playerLevel: Int32): Boolean;
+begin
+  Exit(playerLevel > self.levelRequired);
+end;
 
 function TScriptRecipe.tool(): String;
 begin

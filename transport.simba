@@ -65,7 +65,7 @@ begin
   raise 'No teleport has a path connecting to destination ' + ToStr(destination);
 end;
 
-procedure TUniversalTransport.run(destination: TPoint);
+function TUniversalTransport.run(destination: TPoint): Boolean;
 var
   transport: TUniversalTransport;
   teleportLocation: TTeleportLocation;
@@ -81,15 +81,18 @@ begin
     ETeleportType.ARCEUUS_MAGIC,
     ETeleportType.LUNAR_MAGIC,
     ETeleportType.NORMAL_MAGIC: didTeleport := transport.handleMagicTeleport(teleportLocation);
-  end
+  end;
+
   if didTeleport then
-    transport.RSW.WebWalk(destination);
+    transport.RSW.WebWalk(destination, 20);
+
+  Exit(True);
 end;
 
 function TUniversalTransport.handleJewelleryTeleport(teleportLocation: TTeleportLocation): Boolean;
 var
-  chargedJewellery: String;
-  chargedVariants: TStringArray := getChargedJewelleryNames(teleportLocation.item);
+  chargedJewellery: TRSItem;
+  chargedVariants: TRSItemArray := getChargedJewelleryNames(teleportLocation.item);
 begin
   for chargedJewellery in chargedVariants do
   begin
@@ -101,8 +104,8 @@ begin
       WriteLn("Clicking ", teleportLocation.destination);
       if Chat.ClickOption(teleportLocation.destination, True) then
         Exit(True);
-    end
-  end
+    end;
+  end;
 
   for chargedJewellery in chargedVariants do
   begin
@@ -152,9 +155,39 @@ begin
   end;
 end;
 
-var 
-  transport: TUniversalTransport;
-  destination: TPoint := [8040, 2540];
+function TUniversalTransport.genericJewelleryBankTeleport(): Boolean;
 begin
-  transport.run(destination);
+  if Equipment.ContainsAny(getChargedJewelleryNames('Ring of Wealth')) then
+    Result := self.run(RSTeleports.GRAND_EXCHANGE.worldPoint)
+  else if Equipment.ContainsAny(getChargedJewelleryNames('Ring of Dueling')) then
+    Result := self.run(RSTeleports.CASTLE_WARS.worldPoint)
+  else if Equipment.ContainsAny(getChargedJewelleryNames('Amulet of Glory')) then
+    Result := self.run(RSTeleports.EDGEVILLE.worldPoint)
+  else if Equipment.ContainsAny(getChargedJewelleryNames('Games Necklace')) then
+    Result := self.run(RSTeleports.WINTERTODT_CAMP.worldPoint)
+  else if Inventory.ContainsAny(getChargedJewelleryNames('Ring of Wealth')) then
+    Result := self.run(RSTeleports.GRAND_EXCHANGE.worldPoint)
+  else if Inventory.ContainsAny(getChargedJewelleryNames('Ring of Dueling')) then
+    Result := self.run(RSTeleports.CASTLE_WARS.worldPoint)
+  else if Inventory.ContainsAny(getChargedJewelleryNames('Amulet of Glory')) then
+    Result := self.run(RSTeleports.EDGEVILLE.worldPoint)
+  else if Inventory.ContainsAny(getChargedJewelleryNames('Games Necklace')) then
+    Result := self.run(RSTeleports.WINTERTODT_CAMP.worldPoint);
 end;
+
+function TUniversalTransport.nearGE(): Boolean;
+begin
+  Exit(self.getContainingRegion(self.RSW.GetMyPos()).Bounds = RSRegions.GRAND_EXCHANGE);
+end;
+
+function TUniversalTransport.goToGE(): Boolean;
+begin
+  if self.nearGE() then
+    Result := self.RSW.WebWalk(RSTeleports.GRAND_EXCHANGE.worldPoint, 50)
+  else
+    Result := self.run(RSTeleports.GRAND_EXCHANGE.worldPoint);
+end;
+
+
+var 
+  Transport: TUniversalTransport;
