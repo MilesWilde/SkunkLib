@@ -1,345 +1,239 @@
-{$INCLUDE_ONCE SRL-T/osr.simba}
-{$INCLUDE_ONCE ./rsteleportutils.simba}
-type RSTeleports = record(TSRLBaseRecord) class var
-    VARROCK: TTeleportLocation;
-    LUMBRIDGE: TTeleportLocation;
-    FALADOR: TTeleportLocation;
-    CAMELOT: TTeleportLocation;
-    CAMELOT_BANK: TTeleportLocation;
-    ARDOUGNE: TTeleportLocation;
-    WATCHTOWER: TTeleportLocation;
-    WATCHTOWER_YANILLE: TTeleportLocation;
-    TROLLHEIM: TTeleportLocation;
-    APE_ATOLL: TTeleportLocation;
-    KOUREND: TTeleportLocation;
-    PADDEWWA: TTeleportLocation;
-    SENNTISTEN: TTeleportLocation;
-    KHARYRLL: TTeleportLocation;
-    LASSAR: TTeleportLocation;
-    DAREEYAK: TTeleportLocation;
-    CARRALLANGAR: TTeleportLocation;
-    ANNAKARL: TTeleportLocation;
-    GHORROCK: TTeleportLocation;
-    MOONCLAN: TTeleportLocation;
-    OURANIA: TTeleportLocation;
-    WATERBIRTH: TTeleportLocation;
-    BARBARIAN: TTeleportLocation;
-    KHAZARD: TTeleportLocation;
-    FISHING_GUILD_LUNAR: TTeleportLocation;
-    CATHERBY: TTeleportLocation;
-    ICE_PLATEAU: TTeleportLocation;
-    ARCEUUS_LIBRARY: TTeleportLocation;
-    DRAYNOR_MANOR: TTeleportLocation;
-    BATTLEFRONT: TTeleportLocation;
-    MIND_ALTAR: TTeleportLocation;
-    SALVE_GRAVEYARD: TTeleportLocation;
-    FENKENSTRAINS_CASTLE: TTeleportLocation;
-    WEST_ARDOUGNE: TTeleportLocation;
-    HARMONY_ISLAND: TTeleportLocation;
-    CEMETERY: TTeleportLocation;
-    BARROWS: TTeleportLocation;
-    BARBARIAN_ASSAULT: TTeleportLocation;
-    BURTHORPE_GAMES_ROOM: TTeleportLocation;
-    TEARS_OF_GUTHIX: TTeleportLocation;
-    CORPOREAL_BEAST: TTeleportLocation;
-    WINTERTODT_CAMP: TTeleportLocation;
-    FARMING_GUILD: TTeleportLocation;
-    AL_KHARID_PVP_ARENA: TTeleportLocation;
-    FEROX_ENCLAVE: TTeleportLocation;
-    CASTLE_WARS: TTeleportLocation;
-    WARRIORS_GUILD: TTeleportLocation;
-    CHAMPIONS_GUILD: TTeleportLocation;
-    EDGEVILLE_MONASTERY: TTeleportLocation;
-    RANGING_GUILD: TTeleportLocation;
-    FISHING_GUILD: TTeleportLocation;
-    MINING_GUILD: TTeleportLocation;
-    CRAFTING_GUILD: TTeleportLocation;
-    COOKING_GUILD: TTeleportLocation;
-    WOODCUTTING_GUILD: TTeleportLocation;
-    EDGEVILLE: TTeleportLocation;
-    KARAMJA: TTeleportLocation;
-    DRAYNOR_VILLAGE: TTeleportLocation;
-    AL_KHARID: TTeleportLocation;
-    MISCELLANIA: TTeleportLocation;
-    GRAND_EXCHANGE: TTeleportLocation;
-    FALADOR_PARK: TTeleportLocation;
-    DONDAKAN: TTeleportLocation;
-    SLAYER_TOWER: TTeleportLocation;
-    FREMENNIK_SLAYER_DUNGEON: TTeleportLocation;
-    FREMENNIK_SLAYER_DUNGEON_INSIDE: TTeleportLocation;
-    TARNS_LAIR: TTeleportLocation;
-    STRONGHOLD_SLAYER_CAVE: TTeleportLocation;
-    DARK_BEASTS: TTeleportLocation;
-    DIGSITE: TTeleportLocation;
-    HOUSE_ON_THE_HILL: TTeleportLocation;
-    LITHKREN: TTeleportLocation;
-    WIZARDS_TOWER: TTeleportLocation;
-    JORRALS_OUTPOST: TTeleportLocation;
-    DESERT_EAGLE_STATION_OF_THE_EAGLE_TRANSPORT_SYSTEM: TTeleportLocation;
-    CHAOS_TEMPLE_LVL_15: TTeleportLocation;
-    BANDIT_CAMP_LVL_17: TTeleportLocation;
-    LAVA_MAZE_LVL_41: TTeleportLocation;
-    XERICS_LOOKOUT: TTeleportLocation;
-    XERICS_GLADE: TTeleportLocation;
-    XERICS_INFERNO: TTeleportLocation;
-    XERICS_HEART: TTeleportLocation;
-    XERICS_HONOUR: TTeleportLocation;
-    STRONGHOLD_OF_SECURITY: TTeleportLocation;
-    MYTHS_GUILD: TTeleportLocation;
-    ECTOFUNTUS: TTeleportLocation;
-    CHAMPIONS_GUILD_CHRONICLE: TTeleportLocation;
-    GRAND_TREE: TTeleportLocation;
-    RELLEKKA: TTeleportLocation;
-    WATERBIRTH_ISLAND: TTeleportLocation;
-    NEITIZNOT: TTeleportLocation;
-    JATIZSO: TTeleportLocation;
-    WEISS: TTeleportLocation;
-    TROLL_STRONGHOLD_WITH_73_AGILITY: TTeleportLocation;
-    TROLL_STRONGHOLD: TTeleportLocation;
-    LUNCH_BY_THE_LANCALLIUMS_HOSIDIUS: TTeleportLocation;
-    THE_FISHERS_FLUTE_PISCARILIUS: TTeleportLocation;
-    HISTORY_AND_HEARSAY_SHAYZIEN: TTeleportLocation;
-    JEWELRY_OF_JUBILATION_LOVAKENGJ: TTeleportLocation;
-    A_DARK_DISPOSITION_ARCEUUS: TTeleportLocation;
-    JALSAVRAH_PYRAMID_PLUNDER: TTeleportLocation;
-    JALEUSTROPHOS_AGILITY_PYRAMID: TTeleportLocation;
-    JALDRAOCHT_DESERT_TREASURE_PYRAMID: TTeleportLocation;
-    JALTEVAS_NECROPOLIS_OBELISK: TTeleportLocation;
-    ENAKHRAS_TEMPLE: TTeleportLocation;
-    LLETYA: TTeleportLocation;
-    PRIFDDINAS: TTeleportLocation;
-    VER_SINHAZA: TTeleportLocation;
-    DARKMEYER: TTeleportLocation;
-    MONASTERY: TTeleportLocation;
-    FARM: TTeleportLocation;
-  end;
+{$DEFINE WL_TELEPORTS}
+{$IFNDEF WL_OSR}
+  {$I WaspLib/osr.simba}
+{$ENDIF}
+{$IFNDEF WL_TELEPORT_UTILS}
+  {$I ./rsteleportutils.simba}
+{$ENDIF}
+
+type
+  ETeleportLocation = (
+    VARROCK_TELEPORT,
+    LUMBRIDGE_TELEPORT,
+    FALADOR_TELEPORT,
+    CAMELOT_TELEPORT,
+    CAMELOT_BANK_TELEPORT,
+    ARDOUGNE_TELEPORT,
+    WATCHTOWER_TELEPORT,
+    WATCHTOWER_YANILLE_TELEPORT,
+    TROLLHEIM_TELEPORT,
+    APE_ATOLL_TELEPORT,
+    KOUREND_TELEPORT,
+    PADDEWWA_TELEPORT,
+    SENNTISTEN_TELEPORT,
+    KHARYRLL_TELEPORT,
+    LASSAR_TELEPORT,
+    DAREEYAK_TELEPORT,
+    CARRALLANGAR_TELEPORT,
+    ANNAKARL_TELEPORT,
+    GHORROCK_TELEPORT,
+    MOONCLAN_TELEPORT,
+    OURANIA_TELEPORT,
+    WATERBIRTH_TELEPORT,
+    BARBARIAN_TELEPORT,
+    KHAZARD_TELEPORT,
+    FISHING_GUILD_LUNAR_TELEPORT,
+    CATHERBY_TELEPORT,
+    ICE_PLATEAU_TELEPORT,
+    ARCEUUS_LIBRARY_TELEPORT,
+    DRAYNOR_MANOR_TELEPORT,
+    BATTLEFRONT_TELEPORT,
+    MIND_ALTAR_TELEPORT,
+    SALVE_GRAVEYARD_TELEPORT,
+    FENKENSTRAINS_CASTLE_TELEPORT,
+    WEST_ARDOUGNE_TELEPORT,
+    HARMONY_ISLAND_TELEPORT,
+    CEMETERY_TELEPORT,
+    BARROWS_TELEPORT,
+    BARBARIAN_ASSAULT_TELEPORT,
+    BURTHORPE_GAMES_ROOM_TELEPORT,
+    TEARS_OF_GUTHIX_TELEPORT,
+    CORPOREAL_BEAST_TELEPORT,
+    WINTERTODT_CAMP_TELEPORT,
+    FARMING_GUILD_TELEPORT,
+    AL_KHARID_PVP_ARENA_TELEPORT,
+    FEROX_ENCLAVE_TELEPORT,
+    CASTLE_WARS_TELEPORT,
+    WARRIORS_GUILD_TELEPORT,
+    CHAMPIONS_GUILD_TELEPORT,
+    EDGEVILLE_MONASTERY_TELEPORT,
+    RANGING_GUILD_TELEPORT,
+    FISHING_GUILD_TELEPORT,
+    MINING_GUILD_TELEPORT,
+    CRAFTING_GUILD_TELEPORT,
+    COOKING_GUILD_TELEPORT,
+    WOODCUTTING_GUILD_TELEPORT,
+    EDGEVILLE_TELEPORT,
+    KARAMJA_TELEPORT,
+    DRAYNOR_VILLAGE_TELEPORT,
+    AL_KHARID_TELEPORT,
+    MISCELLANIA_TELEPORT,
+    GRAND_EXCHANGE_TELEPORT,
+    FALADOR_PARK_TELEPORT,
+    DONDAKAN_TELEPORT,
+    SLAYER_TOWER_TELEPORT,
+    FREMENNIK_SLAYER_DUNGEON_TELEPORT,
+    FREMENNIK_SLAYER_DUNGEON_INSIDE_TELEPORT,
+    TARNS_LAIR_TELEPORT,
+    STRONGHOLD_SLAYER_CAVE_TELEPORT,
+    DARK_BEASTS_TELEPORT,
+    DIGSITE_TELEPORT,
+    HOUSE_ON_THE_HILL_TELEPORT,
+    LITHKREN_TELEPORT,
+    WIZARDS_TOWER_TELEPORT,
+    JORRALS_OUTPOST_TELEPORT,
+    DESERT_EAGLE_STATION_OF_THE_EAGLE_TRANSPORT_SYSTEM_TELEPORT,
+    CHAOS_TEMPLE_LVL_15_TELEPORT,
+    BANDIT_CAMP_LVL_17_TELEPORT,
+    LAVA_MAZE_LVL_41_TELEPORT,
+    XERICS_LOOKOUT_TELEPORT,
+    XERICS_GLADE_TELEPORT,
+    XERICS_INFERNO_TELEPORT,
+    XERICS_HEART_TELEPORT,
+    XERICS_HONOUR_TELEPORT,
+    STRONGHOLD_OF_SECURITY_TELEPORT,
+    MYTHS_GUILD_TELEPORT,
+    ECTOFUNTUS_TELEPORT,
+    CHAMPIONS_GUILD_CHRONICLE_TELEPORT,
+    GRAND_TREE_TELEPORT,
+    RELLEKKA_TELEPORT,
+    WATERBIRTH_ISLAND_TELEPORT,
+    NEITIZNOT_TELEPORT,
+    JATIZSO_TELEPORT,
+    WEISS_TELEPORT,
+    TROLL_STRONGHOLD_WITH_73_AGILITY_TELEPORT,
+    TROLL_STRONGHOLD_TELEPORT,
+    LUNCH_BY_THE_LANCALLIUMS_HOSIDIUS_TELEPORT,
+    THE_FISHERS_FLUTE_PISCARILIUS_TELEPORT,
+    HISTORY_AND_HEARSAY_SHAYZIEN_TELEPORT,
+    JEWELRY_OF_JUBILATION_LOVAKENGJ_TELEPORT,
+    A_DARK_DISPOSITION_ARCEUUS_TELEPORT,
+    JALSAVRAH_PYRAMID_PLUNDER_TELEPORT,
+    JALEUSTROPHOS_AGILITY_PYRAMID_TELEPORT,
+    JALDRAOCHT_DESERT_TREASURE_PYRAMID_TELEPORT,
+    JALTEVAS_NECROPOLIS_OBELISK_TELEPORT,
+    ENAKHRAS_TEMPLE_TELEPORT,
+    LLETYA_TELEPORT,
+    PRIFDDINAS_TELEPORT,
+    VER_SINHAZA_TELEPORT,
+    DARKMEYER_TELEPORT,
+    MONASTERY_TELEPORT,
+    FARM_TELEPORT
+);
 
 var
-  RSTeleportsArray: array of TTeleportLocation;
-begin
-  RSTeleports.VARROCK := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Varrock", 25, [8240, 2740]);
-  RSTeleports.LUMBRIDGE := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Lumbridge", 31, [8282, 3574]);
-  RSTeleports.FALADOR := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Falador", 37, [7257, 2929]);
-  RSTeleports.CAMELOT := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Camelot", 45, [6421, 2541]);
-  RSTeleports.CAMELOT_BANK := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Camelot Bank", 45, [6304, 2507]);
-  RSTeleports.ARDOUGNE := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Ardougne", 51, [6053, 3225]);
-  RSTeleports.WATCHTOWER := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Watchtower", 58, [5582, 3990]);
-  RSTeleports.WATCHTOWER_YANILLE := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Watchtower Yanille", 58, [5730, 4053]);
-  RSTeleports.TROLLHEIM := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Trollheim", 61, [6957, 1739]);
-  RSTeleports.APE_ATOLL := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Ape Atoll", 64, [6321, 4996]);
-  RSTeleports.KOUREND := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Kourend", 69, [1643, 3672]);
-  RSTeleports.PADDEWWA := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Paddewwa", 54, [3097, 9880]);
-  RSTeleports.SENNTISTEN := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Senntisten", 60, [8668, 3101]);
-  RSTeleports.KHARYRLL := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Kharyrll", 66, [9368, 2556]);
-  RSTeleports.LASSAR := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Lassar", 72, [3002, 3472]);
-  RSTeleports.DAREEYAK := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Dareeyak", 78, [2969, 3695]);
-  RSTeleports.CARRALLANGAR := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Carrallangar", 84, [3157, 3667]);
-  RSTeleports.ANNAKARL := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Annakarl", 90, [3288, 3888]);
-  RSTeleports.GHORROCK := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Ghorrock", 96, [2977, 3872]);
-  RSTeleports.MOONCLAN := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Moonclan", 69, [2113, 3915]);
-  RSTeleports.OURANIA := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Ourania", 71, [2468, 3246]);
-  RSTeleports.WATERBIRTH := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Waterbirth", 72, [2546, 3755]);
-  RSTeleports.BARBARIAN := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Barbarian", 75, [2543, 3568]);
-  RSTeleports.KHAZARD := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Khazard", 78, [2636, 3167]);
-  RSTeleports.FISHING_GUILD_LUNAR := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Fishing Guild", 85, [2612, 3391]);
-  RSTeleports.CATHERBY := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Catherby", 87, [2802, 3449]);
-  RSTeleports.ICE_PLATEAU := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Ice Plateau", 89, [2973, 3939]);
-  RSTeleports.ARCEUUS_LIBRARY := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Arceuus Library", 6, [1632, 3838]);
-  RSTeleports.DRAYNOR_MANOR := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Draynor Manor", 17, [3108, 3352]);
-  RSTeleports.BATTLEFRONT := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Battlefront", 23, [1349, 3739]);
-  RSTeleports.MIND_ALTAR := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Mind Altar", 28, [2979, 3509]);
-  RSTeleports.SALVE_GRAVEYARD := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Salve Graveyard", 40, [9122, 2602]);
-  RSTeleports.FENKENSTRAINS_CASTLE := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Fenkenstrain's Castle", 48, [9583, 2333]);
-  RSTeleports.WEST_ARDOUGNE := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "West Ardougne", 61, [2500, 3291]);
-  RSTeleports.HARMONY_ISLAND := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Harmony Island", 65, [3797, 2866]);
-  RSTeleports.CEMETERY := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Cemetery", 71, [2978, 3763]);
-  RSTeleports.BARROWS := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Barrows", 83, [3565, 3315]);
-  RSTeleports.BARBARIAN_ASSAULT := setupTeleportLocation(ETeleportType.JEWELLERY, "Games Necklace" , "Barbarian Assault", [5472, 2168]);
-  RSTeleports.BURTHORPE_GAMES_ROOM := setupTeleportLocation(ETeleportType.JEWELLERY, "Games Necklace" , "Burthorpe Games Room", [6990, 2220]);
-  RSTeleports.TEARS_OF_GUTHIX := setupTeleportLocation(ETeleportType.JEWELLERY, "Games Necklace" , "Tears of Guthix", [3245, 9500]);
-  RSTeleports.CORPOREAL_BEAST := setupTeleportLocation(ETeleportType.JEWELLERY, "Games Necklace" , "Corporeal Beast", [2967, 4384]);
-  RSTeleports.WINTERTODT_CAMP := setupTeleportLocation(ETeleportType.JEWELLERY, "Games Necklace" , "Wintertodt Camp", [1887, 702]);
-  RSTeleports.FARMING_GUILD := setupTeleportLocation(ETeleportType.JEWELLERY, "Skills Necklace" , "Farming Guild", [388, 1590]);
-  RSTeleports.AL_KHARID_PVP_ARENA := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Dueling" , "Al Kharid PvP Arena", [8646, 3508]);
-  RSTeleports.FEROX_ENCLAVE := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Dueling" , "Ferox Enclave", [8000, 1908]);
-  RSTeleports.CASTLE_WARS := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Dueling" , "Castle Wars", [5162, 4088]);
-  RSTeleports.WARRIORS_GUILD := setupTeleportLocation(ETeleportType.JEWELLERY, "Combat Bracelet" , "Warriors' Guild", [6928, 2250]);
-  RSTeleports.CHAMPIONS_GUILD := setupTeleportLocation(ETeleportType.JEWELLERY, "Combat Bracelet" , "Champions' Guild", [8144, 2974]);
-  RSTeleports.EDGEVILLE_MONASTERY := setupTeleportLocation(ETeleportType.JEWELLERY, "Combat Bracelet" , "Edgeville Monastery", [7600, 2480]);
-  RSTeleports.RANGING_GUILD := setupTeleportLocation(ETeleportType.JEWELLERY, "Combat Bracelet" , "Ranging Guild", [6014, 2686]);
-  RSTeleports.FISHING_GUILD := setupTeleportLocation(ETeleportType.JEWELLERY, "Skills Necklace" , "Fishing Guild", [5842, 2886]);
-  RSTeleports.MINING_GUILD := setupTeleportLocation(ETeleportType.JEWELLERY, "Skills Necklace" , "Mining Guild", [3049, 9762]);
-  RSTeleports.CRAFTING_GUILD := setupTeleportLocation(ETeleportType.JEWELLERY, "Skills Necklace" , "Crafting Guild", [7129, 3265]);
-  RSTeleports.COOKING_GUILD := setupTeleportLocation(ETeleportType.JEWELLERY, "Skills Necklace" , "Cooking Guild", [7970, 2700]);
-  RSTeleports.WOODCUTTING_GUILD := setupTeleportLocation(ETeleportType.JEWELLERY, "Skills Necklace" , "Woodcutting Guild", [1630, 2510]);
-  RSTeleports.EDGEVILLE := setupTeleportLocation(ETeleportType.JEWELLERY, "Amulet of Glory" , "Edgeville", [7740, 2470]);
-  RSTeleports.KARAMJA := setupTeleportLocation(ETeleportType.JEWELLERY, "Amulet of Glory" , "Karamja", [7070, 3740]);
-  RSTeleports.DRAYNOR_VILLAGE := setupTeleportLocation(ETeleportType.JEWELLERY, "Amulet of Glory" , "Draynor Village", [7810, 3440]);
-  RSTeleports.AL_KHARID := setupTeleportLocation(ETeleportType.JEWELLERY, "Amulet of Glory" , "Al-Kharid", [8560, 3500]);
-  RSTeleports.MISCELLANIA := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Wealth" , "Miscellania", [6638, 5262]);
-  RSTeleports.GRAND_EXCHANGE := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Wealth" , "Grand Exchange", [8040, 2524]);
-  RSTeleports.FALADOR_PARK := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Wealth" , "Falador Park", [7382, 2943]);
-  RSTeleports.DONDAKAN := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Wealth" , "Dondakan", [2831, 10165]);
-  RSTeleports.SLAYER_TOWER := setupTeleportLocation(ETeleportType.JEWELLERY, "Slayer Ring" , "Slayer Tower", [9084, 2298]);
-  RSTeleports.FREMENNIK_SLAYER_DUNGEON := setupTeleportLocation(ETeleportType.JEWELLERY, "Slayer Ring" , "Fremennik Slayer Dungeon", [2800, 9998]);
-  RSTeleports.FREMENNIK_SLAYER_DUNGEON_INSIDE := setupTeleportLocation(ETeleportType.JEWELLERY, "Slayer Ring" , "Fremennik Slayer Dungeon (inside)", [2800, 3615]);
-  RSTeleports.TARNS_LAIR := setupTeleportLocation(ETeleportType.JEWELLERY, "Slayer Ring" , "Tarn's Lair", [3187, 4601]);
-  RSTeleports.STRONGHOLD_SLAYER_CAVE := setupTeleportLocation(ETeleportType.JEWELLERY, "Slayer Ring" , "Stronghold Slayer Cave", [2433, 3421]);
-  RSTeleports.DARK_BEASTS := setupTeleportLocation(ETeleportType.JEWELLERY, "Slayer Ring" , "Dark Beasts", [2028, 4638]);
-  RSTeleports.DIGSITE := setupTeleportLocation(ETeleportType.JEWELLERY, "Digsite Pendant" , "Digsite", [8751, 2666]);
-  RSTeleports.HOUSE_ON_THE_HILL := setupTeleportLocation(ETeleportType.JEWELLERY, "Digsite Pendant" , "House on the Hill", [9451, 817]);
-  RSTeleports.LITHKREN := setupTeleportLocation(ETeleportType.JEWELLERY, "Digsite Pendant" , "Lithkren", [3547, 10456]);
-  RSTeleports.WIZARDS_TOWER := setupTeleportLocation(ETeleportType.JEWELLERY, "Necklace of Passage" , "Wizards' Tower", [7848, 3728]);
-  RSTeleports.JORRALS_OUTPOST := setupTeleportLocation(ETeleportType.JEWELLERY, "Necklace of Passage" , "Jorral's Outpost", [5119, 3052]);
-  RSTeleports.DESERT_EAGLE_STATION_OF_THE_EAGLE_TRANSPORT_SYSTEM := setupTeleportLocation(ETeleportType.JEWELLERY, "Necklace of Passage" , "Desert eagle station of the eagle transport system", [3406, 3157]);
-  RSTeleports.CHAOS_TEMPLE_LVL_15 := setupTeleportLocation(ETeleportType.JEWELLERY, "Burning Amulet" , "Chaos Temple (lvl 15)", [3234, 3637]);
-  RSTeleports.BANDIT_CAMP_LVL_17 := setupTeleportLocation(ETeleportType.JEWELLERY, "Burning Amulet" , "Bandit Camp (lvl 17)", [3038, 3651]);
-  RSTeleports.LAVA_MAZE_LVL_41 := setupTeleportLocation(ETeleportType.JEWELLERY, "Burning Amulet" , "Lava Maze (lvl 41)", [3028, 3840]);
-  RSTeleports.XERICS_LOOKOUT := setupTeleportLocation(ETeleportType.OTHER, "Xeric's Talisman", "Xeric's Lookout", [1576, 3528]);
-  RSTeleports.XERICS_GLADE := setupTeleportLocation(ETeleportType.OTHER, "Xeric's Talisman", "Xeric's Glade", [1754, 3564]);
-  RSTeleports.XERICS_INFERNO := setupTeleportLocation(ETeleportType.OTHER, "Xeric's Talisman", "Xeric's Inferno", [1504, 3819]);
-  RSTeleports.XERICS_HEART := setupTeleportLocation(ETeleportType.OTHER, "Xeric's Talisman", "Xeric's Heart", [1641, 3670]);
-  RSTeleports.XERICS_HONOUR := setupTeleportLocation(ETeleportType.OTHER, "Xeric's Talisman", "Xeric's Honour", [1254, 3559]);
-  RSTeleports.STRONGHOLD_OF_SECURITY := setupTeleportLocation(ETeleportType.OTHER, "Skull Sceptre", "Stronghold of Security", [3081, 3421]);
-  RSTeleports.MYTHS_GUILD := setupTeleportLocation(ETeleportType.OTHER, "Mythical Cape", "Myth's Guild", [2458, 2851]);
-  RSTeleports.ECTOFUNTUS := setupTeleportLocation(ETeleportType.OTHER, "Ectophial", "Ectofuntus", [10036, 2359]);
-  RSTeleports.CHAMPIONS_GUILD_CHRONICLE := setupTeleportLocation(ETeleportType.OTHER, "Chronicle", "Champions' Guild", [3202, 3357]);
-  RSTeleports.GRAND_TREE := setupTeleportLocation(ETeleportType.OTHER, "Royal Seed Pod", "Grand Tree", [2465, 3495]);
-  RSTeleports.RELLEKKA := setupTeleportLocation(ETeleportType.OTHER, "Enchanted Lyre", "Rellekka", [2664, 3643]);
-  RSTeleports.WATERBIRTH_ISLAND := setupTeleportLocation(ETeleportType.OTHER, "Enchanted Lyre", "Waterbirth Island", [2550, 3756]);
-  RSTeleports.NEITIZNOT := setupTeleportLocation(ETeleportType.OTHER, "Enchanted Lyre", "Neitiznot", [2336, 3801]);
-  RSTeleports.JATIZSO := setupTeleportLocation(ETeleportType.OTHER, "Enchanted Lyre", "Jatizso", [2409, 3809]);
-  RSTeleports.WEISS := setupTeleportLocation(ETeleportType.OTHER, "Icy Basalt", "Weiss", [2846, 3940]);
-  RSTeleports.TROLL_STRONGHOLD_WITH_73_AGILITY := setupTeleportLocation(ETeleportType.OTHER, "Stony Basalt", "Troll Stronghold (with 73 Agility)", [2838, 3693]);
-  RSTeleports.TROLL_STRONGHOLD := setupTeleportLocation(ETeleportType.OTHER, "Stony Basalt", "Troll Stronghold", [2844, 3693]);
-  RSTeleports.LUNCH_BY_THE_LANCALLIUMS_HOSIDIUS := setupTeleportLocation(ETeleportType.OTHER, "Kharedst's Memoirs", "Lunch by the Lancalliums (Hosidius)", [1713, 3612]);
-  RSTeleports.THE_FISHERS_FLUTE_PISCARILIUS := setupTeleportLocation(ETeleportType.OTHER, "Kharedst's Memoirs", "The Fisher's Flute (Piscarilius)", [1802, 3748]);
-  RSTeleports.HISTORY_AND_HEARSAY_SHAYZIEN := setupTeleportLocation(ETeleportType.OTHER, "Kharedst's Memoirs", "History and Hearsay (Shayzien)", [1478, 3576]);
-  RSTeleports.JEWELRY_OF_JUBILATION_LOVAKENGJ := setupTeleportLocation(ETeleportType.OTHER, "Kharedst's Memoirs", "Jewelry of Jubilation (Lovakengj)", [1544, 3762]);
-  RSTeleports.A_DARK_DISPOSITION_ARCEUUS := setupTeleportLocation(ETeleportType.OTHER, "Kharedst's Memoirs", "A Dark Disposition (Arceuus)", [1680, 3746]);
-  RSTeleports.JALSAVRAH_PYRAMID_PLUNDER := setupTeleportLocation(ETeleportType.OTHER, "Pharaoh's Sceptre", "Jalsavrah (Pyramid Plunder)", [3288, 2795]);
-  RSTeleports.JALEUSTROPHOS_AGILITY_PYRAMID := setupTeleportLocation(ETeleportType.OTHER, "Pharaoh's Sceptre", "Jaleustrophos (Agility Pyramid)", [3341, 2827]);
-  RSTeleports.JALDRAOCHT_DESERT_TREASURE_PYRAMID := setupTeleportLocation(ETeleportType.OTHER, "Pharaoh's Sceptre", "Jaldraocht (Desert Treasure Pyramid)", [3232, 2897]);
-  RSTeleports.JALTEVAS_NECROPOLIS_OBELISK := setupTeleportLocation(ETeleportType.OTHER, "Pharaoh's Sceptre", "Jaltevas (Necropolis Obelisk)", [3313, 2720]);
-  RSTeleports.ENAKHRAS_TEMPLE := setupTeleportLocation(ETeleportType.OTHER, "Camulet", "Enakhra's Temple", [3190, 2923]);
-  RSTeleports.LLETYA := setupTeleportLocation(ETeleportType.OTHER, "Teleport crystal", "Lletya", [2330, 3172]);
-  RSTeleports.PRIFDDINAS := setupTeleportLocation(ETeleportType.OTHER, "Teleport crystal", "Prifddinas", [3264, 6065]);
-  RSTeleports.VER_SINHAZA := setupTeleportLocation(ETeleportType.OTHER, "Drakan's medallion", "Ver Sinhaza", [3649, 3230]);
-  RSTeleports.DARKMEYER := setupTeleportLocation(ETeleportType.OTHER, "Drakan's medallion", "Darkmeyer", [3592, 3337]);
-  RSTeleports.MONASTERY := setupTeleportLocation(ETeleportType.OTHER, "Ardougne Cloak", "Monastery", [2606, 3222]);
+  RSTeleports: array [Low(ETeleportLocation)..High(ETeleportLocation)] of TTeleportLocation;
 
-  RSTeleportsArray := [
-    RSTeleports.VARROCK,
-    RSTeleports.LUMBRIDGE,
-    RSTeleports.FALADOR,
-    RSTeleports.CAMELOT,
-    RSTeleports.CAMELOT_BANK,
-    RSTeleports.ARDOUGNE,
-    RSTeleports.WATCHTOWER,
-    RSTeleports.WATCHTOWER_YANILLE,
-    RSTeleports.TROLLHEIM,
-    RSTeleports.APE_ATOLL,
-    RSTeleports.KOUREND,
-    RSTeleports.PADDEWWA,
-    RSTeleports.SENNTISTEN,
-    RSTeleports.KHARYRLL,
-    RSTeleports.LASSAR,
-    RSTeleports.DAREEYAK,
-    RSTeleports.CARRALLANGAR,
-    RSTeleports.ANNAKARL,
-    RSTeleports.GHORROCK,
-    RSTeleports.MOONCLAN,
-    RSTeleports.OURANIA,
-    RSTeleports.WATERBIRTH,
-    RSTeleports.BARBARIAN,
-    RSTeleports.KHAZARD,
-    RSTeleports.FISHING_GUILD_LUNAR,
-    RSTeleports.CATHERBY,
-    RSTeleports.ICE_PLATEAU,
-    RSTeleports.ARCEUUS_LIBRARY,
-    RSTeleports.DRAYNOR_MANOR,
-    RSTeleports.BATTLEFRONT,
-    RSTeleports.MIND_ALTAR,
-    RSTeleports.SALVE_GRAVEYARD,
-    RSTeleports.FENKENSTRAINS_CASTLE,
-    RSTeleports.WEST_ARDOUGNE,
-    RSTeleports.HARMONY_ISLAND,
-    RSTeleports.CEMETERY,
-    RSTeleports.BARROWS,
-    RSTeleports.BARBARIAN_ASSAULT,
-    RSTeleports.BURTHORPE_GAMES_ROOM,
-    RSTeleports.TEARS_OF_GUTHIX,
-    RSTeleports.CORPOREAL_BEAST,
-    RSTeleports.WINTERTODT_CAMP,
-    RSTeleports.FARMING_GUILD,
-    RSTeleports.AL_KHARID_PVP_ARENA,
-    RSTeleports.FEROX_ENCLAVE,
-    RSTeleports.CASTLE_WARS,
-    RSTeleports.WARRIORS_GUILD,
-    RSTeleports.CHAMPIONS_GUILD,
-    RSTeleports.EDGEVILLE_MONASTERY,
-    RSTeleports.RANGING_GUILD,
-    RSTeleports.FISHING_GUILD,
-    RSTeleports.MINING_GUILD,
-    RSTeleports.CRAFTING_GUILD,
-    RSTeleports.COOKING_GUILD,
-    RSTeleports.WOODCUTTING_GUILD,
-    RSTeleports.EDGEVILLE,
-    RSTeleports.KARAMJA,
-    RSTeleports.DRAYNOR_VILLAGE,
-    RSTeleports.AL_KHARID,
-    RSTeleports.MISCELLANIA,
-    RSTeleports.GRAND_EXCHANGE,
-    RSTeleports.FALADOR_PARK,
-    RSTeleports.DONDAKAN,
-    RSTeleports.SLAYER_TOWER,
-    RSTeleports.FREMENNIK_SLAYER_DUNGEON,
-    RSTeleports.FREMENNIK_SLAYER_DUNGEON_INSIDE,
-    RSTeleports.TARNS_LAIR,
-    RSTeleports.STRONGHOLD_SLAYER_CAVE,
-    RSTeleports.DARK_BEASTS,
-    RSTeleports.DIGSITE,
-    RSTeleports.HOUSE_ON_THE_HILL,
-    RSTeleports.LITHKREN,
-    RSTeleports.WIZARDS_TOWER,
-    RSTeleports.JORRALS_OUTPOST,
-    RSTeleports.DESERT_EAGLE_STATION_OF_THE_EAGLE_TRANSPORT_SYSTEM,
-    RSTeleports.CHAOS_TEMPLE_LVL_15,
-    RSTeleports.BANDIT_CAMP_LVL_17,
-    RSTeleports.LAVA_MAZE_LVL_41,
-    RSTeleports.XERICS_LOOKOUT,
-    RSTeleports.XERICS_GLADE,
-    RSTeleports.XERICS_INFERNO,
-    RSTeleports.XERICS_HEART,
-    RSTeleports.XERICS_HONOUR,
-    RSTeleports.STRONGHOLD_OF_SECURITY,
-    RSTeleports.MYTHS_GUILD,
-    RSTeleports.ECTOFUNTUS,
-    RSTeleports.CHAMPIONS_GUILD_CHRONICLE,
-    RSTeleports.GRAND_TREE,
-    RSTeleports.RELLEKKA,
-    RSTeleports.WATERBIRTH_ISLAND,
-    RSTeleports.NEITIZNOT,
-    RSTeleports.JATIZSO,
-    RSTeleports.WEISS,
-    RSTeleports.TROLL_STRONGHOLD_WITH_73_AGILITY,
-    RSTeleports.TROLL_STRONGHOLD,
-    RSTeleports.LUNCH_BY_THE_LANCALLIUMS_HOSIDIUS,
-    RSTeleports.THE_FISHERS_FLUTE_PISCARILIUS,
-    RSTeleports.HISTORY_AND_HEARSAY_SHAYZIEN,
-    RSTeleports.JEWELRY_OF_JUBILATION_LOVAKENGJ,
-    RSTeleports.A_DARK_DISPOSITION_ARCEUUS,
-    RSTeleports.JALSAVRAH_PYRAMID_PLUNDER,
-    RSTeleports.JALEUSTROPHOS_AGILITY_PYRAMID,
-    RSTeleports.JALDRAOCHT_DESERT_TREASURE_PYRAMID,
-    RSTeleports.JALTEVAS_NECROPOLIS_OBELISK,
-    RSTeleports.ENAKHRAS_TEMPLE,
-    RSTeleports.LLETYA,
-    RSTeleports.PRIFDDINAS,
-    RSTeleports.VER_SINHAZA,
-    RSTeleports.DARKMEYER,
-    RSTeleports.MONASTERY,
-    RSTeleports.FARM
-  ]; 
+begin
+  RSTeleports[VARROCK_TELEPORT] := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Varrock", 25, [8240, 2740]);
+  RSTeleports[LUMBRIDGE_TELEPORT] := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Lumbridge", 31, [8282, 3574]);
+  RSTeleports[FALADOR_TELEPORT] := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Falador", 37, [7257, 2929]);
+  RSTeleports[CAMELOT_TELEPORT] := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Camelot", 45, [6421, 2541]);
+  RSTeleports[CAMELOT_BANK_TELEPORT] := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Camelot Bank", 45, [6304, 2507]);
+  RSTeleports[ARDOUGNE_TELEPORT] := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Ardougne", 51, [6053, 3225]);
+  RSTeleports[WATCHTOWER_TELEPORT] := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Watchtower", 58, [5582, 3990]);
+  RSTeleports[WATCHTOWER_YANILLE_TELEPORT] := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Watchtower Yanille", 58, [5730, 4053]);
+  RSTeleports[TROLLHEIM_TELEPORT] := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Trollheim", 61, [6957, 1739]);
+  RSTeleports[APE_ATOLL_TELEPORT] := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Ape Atoll", 64, [6321, 4996]);
+  RSTeleports[KOUREND_TELEPORT] := setupTeleportLocation(ETeleportType.NORMAL_MAGIC, "Kourend", 69, [1643, 3672]);
+  RSTeleports[PADDEWWA_TELEPORT] := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Paddewwa", 54, [3097, 9880]);
+  RSTeleports[SENNTISTEN_TELEPORT] := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Senntisten", 60, [8668, 3101]);
+  RSTeleports[KHARYRLL_TELEPORT] := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Kharyrll", 66, [9368, 2556]);
+  RSTeleports[LASSAR_TELEPORT] := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Lassar", 72, [3002, 3472]);
+  RSTeleports[DAREEYAK_TELEPORT] := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Dareeyak", 78, [2969, 3695]);
+  RSTeleports[CARRALLANGAR_TELEPORT] := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Carrallangar", 84, [3157, 3667]);
+  RSTeleports[ANNAKARL_TELEPORT] := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Annakarl", 90, [3288, 3888]);
+  RSTeleports[GHORROCK_TELEPORT] := setupTeleportLocation(ETeleportType.ANCIENT_MAGICKS, "Ghorrock", 96, [2977, 3872]);
+  RSTeleports[MOONCLAN_TELEPORT] := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Moonclan", 69, [2113, 3915]);
+  RSTeleports[OURANIA_TELEPORT] := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Ourania", 71, [2468, 3246]);
+  RSTeleports[WATERBIRTH_TELEPORT] := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Waterbirth", 72, [2546, 3755]);
+  RSTeleports[BARBARIAN_TELEPORT] := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Barbarian", 75, [2543, 3568]);
+  RSTeleports[KHAZARD_TELEPORT] := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Khazard", 78, [2636, 3167]);
+  RSTeleports[FISHING_GUILD_LUNAR_TELEPORT] := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Fishing Guild", 85, [2612, 3391]);
+  RSTeleports[CATHERBY_TELEPORT] := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Catherby", 87, [2802, 3449]);
+  RSTeleports[ICE_PLATEAU_TELEPORT] := setupTeleportLocation(ETeleportType.LUNAR_MAGIC, "Ice Plateau", 89, [2973, 3939]);
+  RSTeleports[ARCEUUS_LIBRARY_TELEPORT] := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Arceuus Library", 6, [1632, 3838]);
+  RSTeleports[DRAYNOR_MANOR_TELEPORT] := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Draynor Manor", 17, [3108, 3352]);
+  RSTeleports[BATTLEFRONT_TELEPORT] := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Battlefront", 23, [1349, 3739]);
+  RSTeleports[MIND_ALTAR_TELEPORT] := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Mind Altar", 28, [2979, 3509]);
+  RSTeleports[SALVE_GRAVEYARD_TELEPORT] := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Salve Graveyard", 40, [9122, 2602]);
+  RSTeleports[FENKENSTRAINS_CASTLE_TELEPORT] := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Fenkenstrain's Castle", 48, [9583, 2333]);
+  RSTeleports[WEST_ARDOUGNE_TELEPORT] := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "West Ardougne", 61, [2500, 3291]);
+  RSTeleports[HARMONY_ISLAND_TELEPORT] := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Harmony Island", 65, [3797, 2866]);
+  RSTeleports[CEMETERY_TELEPORT] := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Cemetery", 71, [2978, 3763]);
+  RSTeleports[BARROWS_TELEPORT] := setupTeleportLocation(ETeleportType.ARCEUUS_MAGIC, "Barrows", 83, [3565, 3315]);
+  RSTeleports[BARBARIAN_ASSAULT_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Games Necklace" , "Barbarian Assault", [5472, 2168]);
+  RSTeleports[BURTHORPE_GAMES_ROOM_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Games Necklace" , "Burthorpe Games Room", [6990, 2220]);
+  RSTeleports[TEARS_OF_GUTHIX_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Games Necklace" , "Tears of Guthix", [3245, 9500]);
+  RSTeleports[CORPOREAL_BEAST_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Games Necklace" , "Corporeal Beast", [2967, 4384]);
+  RSTeleports[WINTERTODT_CAMP_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Games Necklace" , "Wintertodt Camp", [1887, 702]);
+  RSTeleports[FARMING_GUILD_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Skills Necklace" , "Farming Guild", [388, 1590]);
+  RSTeleports[AL_KHARID_PVP_ARENA_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Dueling" , "Al Kharid PvP Arena", [8646, 3508]);
+  RSTeleports[FEROX_ENCLAVE_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Dueling" , "Ferox Enclave", [8000, 1908]);
+  RSTeleports[CASTLE_WARS_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Dueling" , "Castle Wars", [5162, 4088]);
+  RSTeleports[WARRIORS_GUILD_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Combat Bracelet" , "Warriors' Guild", [6928, 2250]);
+  RSTeleports[CHAMPIONS_GUILD_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Combat Bracelet" , "Champions' Guild", [8144, 2974]);
+  RSTeleports[EDGEVILLE_MONASTERY_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Combat Bracelet" , "Edgeville Monastery", [7600, 2480]);
+  RSTeleports[RANGING_GUILD_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Combat Bracelet" , "Ranging Guild", [6014, 2686]);
+  RSTeleports[FISHING_GUILD_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Skills Necklace" , "Fishing Guild", [5842, 2886]);
+  RSTeleports[MINING_GUILD_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Skills Necklace" , "Mining Guild", [3049, 9762]);
+  RSTeleports[CRAFTING_GUILD_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Skills Necklace" , "Crafting Guild", [7129, 3265]);
+  RSTeleports[COOKING_GUILD_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Skills Necklace" , "Cooking Guild", [7970, 2700]);
+  RSTeleports[WOODCUTTING_GUILD_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Skills Necklace" , "Woodcutting Guild", [1630, 2510]);
+  RSTeleports[EDGEVILLE_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Amulet of Glory" , "Edgeville", [7740, 2470]);
+  RSTeleports[KARAMJA_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Amulet of Glory" , "Karamja", [7070, 3740]);
+  RSTeleports[DRAYNOR_VILLAGE_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Amulet of Glory" , "Draynor Village", [7810, 3440]);
+  RSTeleports[AL_KHARID_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Amulet of Glory" , "Al-Kharid", [8560, 3500]);
+  RSTeleports[MISCELLANIA_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Wealth" , "Miscellania", [6638, 5262]);
+  RSTeleports[GRAND_EXCHANGE_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Wealth" , "Grand Exchange", [8040, 2524]);
+  RSTeleports[FALADOR_PARK_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Wealth" , "Falador Park", [7382, 2943]);
+  RSTeleports[DONDAKAN_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Ring of Wealth" , "Dondakan", [2831, 10165]);
+  RSTeleports[SLAYER_TOWER_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Slayer Ring" , "Slayer Tower", [9084, 2298]);
+  RSTeleports[FREMENNIK_SLAYER_DUNGEON_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Slayer Ring" , "Fremennik Slayer Dungeon", [2800, 9998]);
+  RSTeleports[FREMENNIK_SLAYER_DUNGEON_INSIDE_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Slayer Ring" , "Fremennik Slayer Dungeon (inside)", [2800, 3615]);
+  RSTeleports[TARNS_LAIR_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Slayer Ring" , "Tarn's Lair", [3187, 4601]);
+  RSTeleports[STRONGHOLD_SLAYER_CAVE_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Slayer Ring" , "Stronghold Slayer Cave", [2433, 3421]);
+  RSTeleports[DARK_BEASTS_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Slayer Ring" , "Dark Beasts", [2028, 4638]);
+  RSTeleports[DIGSITE_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Digsite Pendant" , "Digsite", [8751, 2666]);
+  RSTeleports[HOUSE_ON_THE_HILL_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Digsite Pendant" , "House on the Hill", [9451, 817]);
+  RSTeleports[LITHKREN_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Digsite Pendant" , "Lithkren", [3547, 10456]);
+  RSTeleports[WIZARDS_TOWER_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Necklace of Passage" , "Wizards' Tower", [7848, 3728]);
+  RSTeleports[JORRALS_OUTPOST_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Necklace of Passage" , "Jorral's Outpost", [5119, 3052]);
+  RSTeleports[DESERT_EAGLE_STATION_OF_THE_EAGLE_TRANSPORT_SYSTEM_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Necklace of Passage" , "Desert eagle station of the eagle transport system", [3406, 3157]);
+  RSTeleports[CHAOS_TEMPLE_LVL_15_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Burning Amulet" , "Chaos Temple (lvl 15)", [3234, 3637]);
+  RSTeleports[BANDIT_CAMP_LVL_17_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Burning Amulet" , "Bandit Camp (lvl 17)", [3038, 3651]);
+  RSTeleports[LAVA_MAZE_LVL_41_TELEPORT] := setupTeleportLocation(ETeleportType.JEWELLERY, "Burning Amulet" , "Lava Maze (lvl 41)", [3028, 3840]);
+  RSTeleports[XERICS_LOOKOUT_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Xeric's Talisman", "Xeric's Lookout", [1576, 3528]);
+  RSTeleports[XERICS_GLADE_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Xeric's Talisman", "Xeric's Glade", [1754, 3564]);
+  RSTeleports[XERICS_INFERNO_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Xeric's Talisman", "Xeric's Inferno", [1504, 3819]);
+  RSTeleports[XERICS_HEART_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Xeric's Talisman", "Xeric's Heart", [1641, 3670]);
+  RSTeleports[XERICS_HONOUR_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Xeric's Talisman", "Xeric's Honour", [1254, 3559]);
+  RSTeleports[STRONGHOLD_OF_SECURITY_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Skull Sceptre", "Stronghold of Security", [3081, 3421]);
+  RSTeleports[MYTHS_GUILD_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Mythical Cape", "Myth's Guild", [2458, 2851]);
+  RSTeleports[ECTOFUNTUS_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Ectophial", "Ectofuntus", [10036, 2359]);
+  RSTeleports[CHAMPIONS_GUILD_CHRONICLE_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Chronicle", "Champions' Guild", [3202, 3357]);
+  RSTeleports[GRAND_TREE_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Royal Seed Pod", "Grand Tree", [2465, 3495]);
+  RSTeleports[RELLEKKA_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Enchanted Lyre", "Rellekka", [2664, 3643]);
+  RSTeleports[WATERBIRTH_ISLAND_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Enchanted Lyre", "Waterbirth Island", [2550, 3756]);
+  RSTeleports[NEITIZNOT_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Enchanted Lyre", "Neitiznot", [2336, 3801]);
+  RSTeleports[JATIZSO_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Enchanted Lyre", "Jatizso", [2409, 3809]);
+  RSTeleports[WEISS_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Icy Basalt", "Weiss", [2846, 3940]);
+  RSTeleports[TROLL_STRONGHOLD_WITH_73_AGILITY_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Stony Basalt", "Troll Stronghold (with 73 Agility)", [2838, 3693]);
+  RSTeleports[TROLL_STRONGHOLD_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Stony Basalt", "Troll Stronghold", [2844, 3693]);
+  RSTeleports[LUNCH_BY_THE_LANCALLIUMS_HOSIDIUS_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Kharedst's Memoirs", "Lunch by the Lancalliums (Hosidius)", [1713, 3612]);
+  RSTeleports[THE_FISHERS_FLUTE_PISCARILIUS_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Kharedst's Memoirs", "The Fisher's Flute (Piscarilius)", [1802, 3748]);
+  RSTeleports[HISTORY_AND_HEARSAY_SHAYZIEN_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Kharedst's Memoirs", "History and Hearsay (Shayzien)", [1478, 3576]);
+  RSTeleports[JEWELRY_OF_JUBILATION_LOVAKENGJ_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Kharedst's Memoirs", "Jewelry of Jubilation (Lovakengj)", [1544, 3762]);
+  RSTeleports[A_DARK_DISPOSITION_ARCEUUS_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Kharedst's Memoirs", "A Dark Disposition (Arceuus)", [1680, 3746]);
+  RSTeleports[JALSAVRAH_PYRAMID_PLUNDER_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Pharaoh's Sceptre", "Jalsavrah (Pyramid Plunder)", [3288, 2795]);
+  RSTeleports[JALEUSTROPHOS_AGILITY_PYRAMID_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Pharaoh's Sceptre", "Jaleustrophos (Agility Pyramid)", [3341, 2827]);
+  RSTeleports[JALDRAOCHT_DESERT_TREASURE_PYRAMID_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Pharaoh's Sceptre", "Jaldraocht (Desert Treasure Pyramid)", [3232, 2897]);
+  RSTeleports[JALTEVAS_NECROPOLIS_OBELISK_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Pharaoh's Sceptre", "Jaltevas (Necropolis Obelisk)", [3313, 2720]);
+  RSTeleports[ENAKHRAS_TEMPLE_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Camulet", "Enakhra's Temple", [3190, 2923]);
+  RSTeleports[LLETYA_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Teleport crystal", "Lletya", [2330, 3172]);
+  RSTeleports[PRIFDDINAS_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Teleport crystal", "Prifddinas", [3264, 6065]);
+  RSTeleports[VER_SINHAZA_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Drakan's medallion", "Ver Sinhaza", [3649, 3230]);
+  RSTeleports[DARKMEYER_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Drakan's medallion", "Darkmeyer", [3592, 3337]);
+  RSTeleports[MONASTERY_TELEPORT] := setupTeleportLocation(ETeleportType.OTHER, "Ardougne Cloak", "Monastery", [2606, 3222]);
 end;
 

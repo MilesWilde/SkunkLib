@@ -1,4 +1,7 @@
-{$INCLUDE_ONCE SRL-T/osr.simba}
+{$DEFINE WL_TELEPORT_UTILS}
+{$IFNDEF WL_OSR}
+  {$I WaspLib/osr.simba}
+{$ENDIF}
 
 type
   ETeleportType = (
