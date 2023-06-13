@@ -1,4 +1,6 @@
-{$include_once WaspLib/osr.simba}
+{$IFNDEF WL_OSR}
+  {$I WaspLib/osr.simba}
+{$ENDIF}
 
 type
   TItemAmount = record
