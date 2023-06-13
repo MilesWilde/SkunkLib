@@ -112,6 +112,54 @@ type RSTeleports = record(TSRLBaseRecord) class var
     DARKMEYER: TTeleportLocation;
     MONASTERY: TTeleportLocation;
     FARM: TTeleportLocation;
+    AIQ_MUDSKIPPER_POINT: TTeleportLocation;
+    AIR_ISLAND_SOUTHEAST_OF_ARDOUGNE: TTeleportLocation;
+    AJQ_CAVE_SOUTH_OF_DORGESHKAAN: TTeleportLocation;
+    AJR_SLAYER_CAVE: TTeleportLocation;
+    AJS_PENGUINS_NEAR_MISCELLANIA: TTeleportLocation;
+    AKP_NECROPOLIS: TTeleportLocation;
+    AKQ_PISCATORIS_HUNTER_AREA: TTeleportLocation;
+    AKS_FELDIP_HUNTER_AREA: TTeleportLocation;
+    ALP_ISLAND_LIGHTHOUSE: TTeleportLocation;
+    ALQ_HAUNTED_WOODS_EAST_OF_CANIFIS: TTeleportLocation;
+    ALR_ABYSSAL_AREA: TTeleportLocation;
+    ALS_MCGRUBORS_WOOD: TTeleportLocation;
+    BIP_ISLAND_SOUTHWEST_OF_MORT_MYRE: TTeleportLocation;
+    BIQ_KALPHITE_HIVE: TTeleportLocation;
+    BIS_ARDOUGNE_ZOO_UNICORNS: TTeleportLocation;
+    BJP_ISLAND_ISLE_OF_SOULS: TTeleportLocation;
+    BJR_REALM_OF_THE_FISHER_KING: TTeleportLocation;
+    BJS_ISLAND_NEAR_ZULANDRA: TTeleportLocation;
+    BKP_SOUTH_OF_CASTLE_WARS: TTeleportLocation;
+    BKQ_ENCHANTED_VALLEY: TTeleportLocation;
+    BKR_MORT_MYRE_SWAMP,_SOUTH_OF_CANIFIS: TTeleportLocation;
+    BKS_ZANARIS: TTeleportLocation;
+    BLP_TZHAAR_AREA: TTeleportLocation;
+    BLQ_YUBIUSK: TTeleportLocation;
+    BLR_LEGENDS_GUILD: TTeleportLocation;
+    CIP_ISLAND_MISCELLANIA: TTeleportLocation;
+    CIQ_NORTHWEST_OF_YANILLE: TTeleportLocation;
+    CIS_NORTH_OF_THE_ARCEUUS_LIBRARY: TTeleportLocation;
+    CIR_NORTHEAST_OF_THE_FARMING_GUILD: TTeleportLocation;
+    CJR_SINCLAIR_MANSION: TTeleportLocation;
+    CKP_COSMIC_ENTITYS_PLANE: TTeleportLocation;
+    CKR_SOUTH_OF_TAI_BWO_WANNAI_VILLAGE: TTeleportLocation;
+    CKS_CANIFIS: TTeleportLocation;
+    CLP_ISLAND_SOUTH_OF_DRAYNOR_VILLAGE: TTeleportLocation;
+    CLR_ISLAND_APE_ATOLL: TTeleportLocation;
+    CLS_ISLAND_HAZELMERES_HOME: TTeleportLocation;
+    DIP_SIRE_BOSS_ABYSSAL_NEXUS: TTeleportLocation;
+    DIR_GORAKS_PLANE: TTeleportLocation;
+    DIQ_PLAYEROWNED_HOUSE: TTeleportLocation;
+    DIS_WIZARDS_TOWER: TTeleportLocation;
+    DJP_TOWER_OF_LIFE: TTeleportLocation;
+    DJR_CHASM_OF_FIRE: TTeleportLocation;
+    DKP_SOUTH_OF_MUSA_POINT: TTeleportLocation;
+    DKR_EDGEVILLE,_GRAND_EXCHANGE: TTeleportLocation;
+    DKS_POLAR_HUNTER_AREA: TTeleportLocation;
+    DLQ_NORTH_OF_NARDAH: TTeleportLocation;
+    DLR_ISLAND_POISON_WASTE_SOUTH_OF_ISAFDAR: TTeleportLocation;
+    DLS_MYREQUE_HIDEOUT_UNDER_THE_HOLLOWS: TTeleportLocation;
   end;
 
 var
@@ -227,7 +275,54 @@ begin
   RSTeleports.VER_SINHAZA := setupTeleportLocation(ETeleportType.OTHER, "Drakan's medallion", "Ver Sinhaza", [3649, 3230]);
   RSTeleports.DARKMEYER := setupTeleportLocation(ETeleportType.OTHER, "Drakan's medallion", "Darkmeyer", [3592, 3337]);
   RSTeleports.MONASTERY := setupTeleportLocation(ETeleportType.OTHER, "Ardougne Cloak", "Monastery", [2606, 3222]);
-
+  // RSTeleports.AIQ_MUDSKIPPER_POINT := setupTeleportLocation(ETeleportType.FAIRY_RING, "A I Q", [,]);
+  // RSTeleports.AIR_ISLAND_SOUTHEAST_OF_ARDOUGNE := setupTeleportLocation(ETeleportType.FAIRY_RING, "A I R", [,]);
+  // RSTeleports.AJQ_CAVE_SOUTH_OF_DORGESHKAAN := setupTeleportLocation(ETeleportType.FAIRY_RING, "A J Q", [,]);
+  // RSTeleports.AJR_SLAYER_CAVE := setupTeleportLocation(ETeleportType.FAIRY_RING, "A J R", [,]);
+  // RSTeleports.AJS_PENGUINS_NEAR_MISCELLANIA := setupTeleportLocation(ETeleportType.FAIRY_RING, "A J S", [,]);
+  // RSTeleports.AKP_NECROPOLIS := setupTeleportLocation(ETeleportType.FAIRY_RING, "A K P", [,]);
+  // RSTeleports.AKQ_PISCATORIS_HUNTER_AREA := setupTeleportLocation(ETeleportType.FAIRY_RING, "A K Q", [,]);
+  // RSTeleports.AKS_FELDIP_HUNTER_AREA := setupTeleportLocation(ETeleportType.FAIRY_RING, "A K S", [,]);
+  // RSTeleports.ALP_ISLAND_LIGHTHOUSE := setupTeleportLocation(ETeleportType.FAIRY_RING, "A L P", [,]);
+  // RSTeleports.ALQ_HAUNTED_WOODS_EAST_OF_CANIFIS := setupTeleportLocation(ETeleportType.FAIRY_RING, "A L Q", [,]);
+  // RSTeleports.ALR_ABYSSAL_AREA := setupTeleportLocation(ETeleportType.FAIRY_RING, "A L R", [,]);
+  // RSTeleports.ALS_MCGRUBORS_WOOD := setupTeleportLocation(ETeleportType.FAIRY_RING, "A L S", [,]);
+  // RSTeleports.BIP_ISLAND_SOUTHWEST_OF_MORT_MYRE := setupTeleportLocation(ETeleportType.FAIRY_RING, "B I P", [,]);
+  // RSTeleports.BIQ_KALPHITE_HIVE := setupTeleportLocation(ETeleportType.FAIRY_RING, "B I Q", [,]);
+  // RSTeleports.BIS_ARDOUGNE_ZOO_UNICORNS := setupTeleportLocation(ETeleportType.FAIRY_RING, "B I S", [,]);
+  // RSTeleports.BJP_ISLAND_ISLE_OF_SOULS := setupTeleportLocation(ETeleportType.FAIRY_RING, "B J P", [,]);
+  // RSTeleports.BJR_REALM_OF_THE_FISHER_KING := setupTeleportLocation(ETeleportType.FAIRY_RING, "B J R", [,]);
+  // RSTeleports.BJS_ISLAND_NEAR_ZULANDRA := setupTeleportLocation(ETeleportType.FAIRY_RING, "B J S", [,]);
+  // RSTeleports.BKP_SOUTH_OF_CASTLE_WARS := setupTeleportLocation(ETeleportType.FAIRY_RING, "B K P", [,]);
+  // RSTeleports.BKQ_ENCHANTED_VALLEY := setupTeleportLocation(ETeleportType.FAIRY_RING, "B K Q", [,]);
+  // RSTeleports.BKR_MORT_MYRE_SWAMP,_SOUTH_OF_CANIFIS := setupTeleportLocation(ETeleportType.FAIRY_RING, "B K R", [,]);
+  // RSTeleports.BKS_ZANARIS := setupTeleportLocation(ETeleportType.FAIRY_RING, "B K S", [,]);
+  // RSTeleports.BLP_TZHAAR_AREA := setupTeleportLocation(ETeleportType.FAIRY_RING, "B L P", [,]);
+  // RSTeleports.BLQ_YUBIUSK := setupTeleportLocation(ETeleportType.FAIRY_RING, "B L Q", [,]);
+  // RSTeleports.BLR_LEGENDS_GUILD := setupTeleportLocation(ETeleportType.FAIRY_RING, "B L R", [,]);
+  // RSTeleports.CIP_ISLAND_MISCELLANIA := setupTeleportLocation(ETeleportType.FAIRY_RING, "C I P", [,]);
+  // RSTeleports.CIQ_NORTHWEST_OF_YANILLE := setupTeleportLocation(ETeleportType.FAIRY_RING, "C I Q", [,]);
+  // RSTeleports.CIS_NORTH_OF_THE_ARCEUUS_LIBRARY := setupTeleportLocation(ETeleportType.FAIRY_RING, "C I S", [,]);
+  // RSTeleports.CIR_NORTHEAST_OF_THE_FARMING_GUILD := setupTeleportLocation(ETeleportType.FAIRY_RING, "C I R", [,]);
+  // RSTeleports.CJR_SINCLAIR_MANSION := setupTeleportLocation(ETeleportType.FAIRY_RING, "C J R", [,]);
+  // RSTeleports.CKP_COSMIC_ENTITYS_PLANE := setupTeleportLocation(ETeleportType.FAIRY_RING, "C K P", [,]);
+  // RSTeleports.CKR_SOUTH_OF_TAI_BWO_WANNAI_VILLAGE := setupTeleportLocation(ETeleportType.FAIRY_RING, "C K R", [,]);
+  // RSTeleports.CKS_CANIFIS := setupTeleportLocation(ETeleportType.FAIRY_RING, "C K S", [,]);
+  // RSTeleports.CLP_ISLAND_SOUTH_OF_DRAYNOR_VILLAGE := setupTeleportLocation(ETeleportType.FAIRY_RING, "C L P", [,]);
+  // RSTeleports.CLR_ISLAND_APE_ATOLL := setupTeleportLocation(ETeleportType.FAIRY_RING, "C L R", [,]);
+  // RSTeleports.CLS_ISLAND_HAZELMERES_HOME := setupTeleportLocation(ETeleportType.FAIRY_RING, "C L S", [,]);
+  // RSTeleports.DIP_SIRE_BOSS_ABYSSAL_NEXUS := setupTeleportLocation(ETeleportType.FAIRY_RING, "D I P", [,]);
+  // RSTeleports.DIR_GORAKS_PLANE := setupTeleportLocation(ETeleportType.FAIRY_RING, "D I R", [,]);
+  // RSTeleports.DIQ_PLAYEROWNED_HOUSE := setupTeleportLocation(ETeleportType.FAIRY_RING, "D I Q", [,]);
+  // RSTeleports.DIS_WIZARDS_TOWER := setupTeleportLocation(ETeleportType.FAIRY_RING, "D I S", [,]);
+  // RSTeleports.DJP_TOWER_OF_LIFE := setupTeleportLocation(ETeleportType.FAIRY_RING, "D J P", [,]);
+  // RSTeleports.DJR_CHASM_OF_FIRE := setupTeleportLocation(ETeleportType.FAIRY_RING, "D J R", [,]);
+  // RSTeleports.DKP_SOUTH_OF_MUSA_POINT := setupTeleportLocation(ETeleportType.FAIRY_RING, "D K P", [,]);
+  // RSTeleports.DKR_EDGEVILLE,_GRAND_EXCHANGE := setupTeleportLocation(ETeleportType.FAIRY_RING, "D K R", [,]);
+  // RSTeleports.DKS_POLAR_HUNTER_AREA := setupTeleportLocation(ETeleportType.FAIRY_RING, "D K S", [,]);
+  // RSTeleports.DLQ_NORTH_OF_NARDAH := setupTeleportLocation(ETeleportType.FAIRY_RING, "D L Q", [,]);
+  // RSTeleports.DLR_ISLAND_POISON_WASTE_SOUTH_OF_ISAFDAR := setupTeleportLocation(ETeleportType.FAIRY_RING, "D L R", [,]);
+  // RSTeleports.DLS_MYREQUE_HIDEOUT_UNDER_THE_HOLLOWS := setupTeleportLocation(ETeleportType.FAIRY_RING, "D L S", [,])
   RSTeleportsArray := [
     RSTeleports.VARROCK,
     RSTeleports.LUMBRIDGE,
@@ -339,7 +434,55 @@ begin
     RSTeleports.VER_SINHAZA,
     RSTeleports.DARKMEYER,
     RSTeleports.MONASTERY,
-    RSTeleports.FARM
+    RSTeleports.FARM,
+    RSTeleports.AIQ_MUDSKIPPER_POINT,
+    RSTeleports.AIR_ISLAND_SOUTHEAST_OF_ARDOUGNE,
+    RSTeleports.AJQ_CAVE_SOUTH_OF_DORGESHKAAN,
+    RSTeleports.AJR_SLAYER_CAVE,
+    RSTeleports.AJS_PENGUINS_NEAR_MISCELLANIA,
+    RSTeleports.AKP_NECROPOLIS,
+    RSTeleports.AKQ_PISCATORIS_HUNTER_AREA,
+    RSTeleports.AKS_FELDIP_HUNTER_AREA,
+    RSTeleports.ALP_ISLAND_LIGHTHOUSE,
+    RSTeleports.ALQ_HAUNTED_WOODS_EAST_OF_CANIFIS,
+    RSTeleports.ALR_ABYSSAL_AREA,
+    RSTeleports.ALS_MCGRUBORS_WOOD,
+    RSTeleports.BIP_ISLAND_SOUTHWEST_OF_MORT_MYRE,
+    RSTeleports.BIQ_KALPHITE_HIVE,
+    RSTeleports.BIS_ARDOUGNE_ZOO_UNICORNS,
+    RSTeleports.BJP_ISLAND_ISLE_OF_SOULS,
+    RSTeleports.BJR_REALM_OF_THE_FISHER_KING,
+    RSTeleports.BJS_ISLAND_NEAR_ZULANDRA,
+    RSTeleports.BKP_SOUTH_OF_CASTLE_WARS,
+    RSTeleports.BKQ_ENCHANTED_VALLEY,
+    RSTeleports.BKR_MORT_MYRE_SWAMP,_SOUTH_OF_CANIFIS,
+    RSTeleports.BKS_ZANARIS,
+    RSTeleports.BLP_TZHAAR_AREA,
+    RSTeleports.BLQ_YUBIUSK,
+    RSTeleports.BLR_LEGENDS_GUILD,
+    RSTeleports.CIP_ISLAND_MISCELLANIA,
+    RSTeleports.CIQ_NORTHWEST_OF_YANILLE,
+    RSTeleports.CIS_NORTH_OF_THE_ARCEUUS_LIBRARY,
+    RSTeleports.CIR_NORTHEAST_OF_THE_FARMING_GUILD,
+    RSTeleports.CJR_SINCLAIR_MANSION,
+    RSTeleports.CKP_COSMIC_ENTITYS_PLANE,
+    RSTeleports.CKR_SOUTH_OF_TAI_BWO_WANNAI_VILLAGE,
+    RSTeleports.CKS_CANIFIS,
+    RSTeleports.CLP_ISLAND_SOUTH_OF_DRAYNOR_VILLAGE,
+    RSTeleports.CLR_ISLAND_APE_ATOLL,
+    RSTeleports.CLS_ISLAND_HAZELMERES_HOME,
+    RSTeleports.DIP_SIRE_BOSS_ABYSSAL_NEXUS,
+    RSTeleports.DIR_GORAKS_PLANE,
+    RSTeleports.DIQ_PLAYEROWNED_HOUSE,
+    RSTeleports.DIS_WIZARDS_TOWER,
+    RSTeleports.DJP_TOWER_OF_LIFE,
+    RSTeleports.DJR_CHASM_OF_FIRE,
+    RSTeleports.DKP_SOUTH_OF_MUSA_POINT,
+    RSTeleports.DKR_EDGEVILLE,_GRAND_EXCHANGE,
+    RSTeleports.DKS_POLAR_HUNTER_AREA,
+    RSTeleports.DLQ_NORTH_OF_NARDAH,
+    RSTeleports.DLR_ISLAND_POISON_WASTE_SOUTH_OF_ISAFDAR,
+    RSTeleports.DLS_MYREQUE_HIDEOUT_UNDER_THE_HOLLOWS
   ]; 
 end;
 

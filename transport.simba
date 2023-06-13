@@ -10,6 +10,12 @@
 {$include_once ./records.simba}
 {$include_once ./rsteleports.simba}
 
+var
+  cacheRSW: TRSWalker;
+begin
+  cacheRSW.Setup();
+end;
+
 type
   TUniversalTransport = record (TBaseBankScript)
     destination: TPoint;
@@ -26,13 +32,15 @@ end;
 procedure TUniversalTransport.Init(MaxActions: Int32; MaxTime: Int64; destination: TPoint); overload;
 var
   destinationRegion: TRSNamedRegion := self.getContainingRegion(destination);
-  regions: TBoxArray := [RSRegions.GRAND_EXCHANGE, destinationRegion.Bounds];
+  currentRegion: TRSNamedRegion := self.getContainingRegion(cacheRSW.GetMyPos());
+  regions: TBoxArray := [RSRegions.GRAND_EXCHANGE, destinationRegion.Bounds, currentRegion.Bounds];
 begin
-  WriteLn('Initializing ', destinationRegion.Name);
+  WriteLn('RSW Initializing ', currentRegion);
   self.Init(MaxActions, MaxTime);
   self.RSW.Setup(regions);
   self.RSW.WebGraph := WaspWeb;
   self.RSW.AdaptiveWalk := True;
+  currentRegion := self.getContainingRegion(self.rsw.GetMyPos());
   Mouse.Speed := 28;
   Mouse.MissChance := 1;
   Mouse.Distribution := MOUSE_DISTRIBUTION_GAUSS;
@@ -67,24 +75,32 @@ end;
 
 function TUniversalTransport.run(destination: TPoint): Boolean;
 var
-  transport: TUniversalTransport;
   teleportLocation: TTeleportLocation;
   didTeleport: Boolean;
+  attempt: Int32;
 begin
-  transport.Init(1000, 100000, destination);
-  teleportLocation := transport.getIdealTeleport(destination);
+  self.Init(1000, 100000, destination);
+  teleportLocation := self.getIdealTeleport(destination);
   WriteLn 'Ideal teleport found to be:';
   WriteLn teleportLocation;
   case teleportLocation.teleportType of
-    ETeleportType.JEWELLERY: didTeleport := transport.handleJewelleryTeleport(teleportLocation);
+    ETeleportType.JEWELLERY: didTeleport := self.handleJewelleryTeleport(teleportLocation);
     ETeleportType.ANCIENT_MAGICKS,
     ETeleportType.ARCEUUS_MAGIC,
     ETeleportType.LUNAR_MAGIC,
-    ETeleportType.NORMAL_MAGIC: didTeleport := transport.handleMagicTeleport(teleportLocation);
+    ETeleportType.NORMAL_MAGIC: didTeleport := self.handleMagicTeleport(teleportLocation);
+    ETeleportType.FAIRY_RING: didTeleport := self.handleFairyRingTeleport(teleportLocation);
   end;
 
-  if didTeleport then
-    transport.RSW.WebWalk(destination, 20);
+  for attempt in [0..5] do
+  try
+    if didTeleport then
+      self.RSW.WebWalk(destination, 20);
+  except
+    WaitUntil(self.getContainingRegion(destination).Bounds.Contains(self.rsw.GetMyPos()), 200, 5000);
+
+  if attempt = 5 then raise 'Bomba - rsw cannae connect lassie';
+  end;
 
   Exit(True);
 end;
@@ -100,9 +116,9 @@ begin
     if Inventory.ContainsItem(chargedJewellery) then
     begin
       WriteLn("Searching for ", chargedJewellery, " Rub");
-      Inventory.ClickItem(chargedJewellery, "Rub");
+      WaitUntil(Inventory.ClickItem(chargedJewellery, "Rub"), 200, 5000);
       WriteLn("Clicking ", teleportLocation.destination);
-      if Chat.ClickOption(teleportLocation.destination, True) then
+      if WaitUntil(Chat.ClickOption(teleportLocation.destination, False, [CHAT_COLOR_BLACK]), 200, 5000) then
         Exit(True);
     end;
   end;
@@ -114,9 +130,9 @@ begin
     if Equipment.ContainsItem(chargedJewellery) then
     begin
       WriteLn("Clicking ", chargedJewellery, " Rub");
-      Inventory.ClickItem(chargedJewellery, "Rub");
+      WaitUntil(Inventory.ClickItem(chargedJewellery, "Rub"), 200, 5000);
       WriteLn("Clicking ", teleportLocation.destination);
-      if Chat.ClickOption(teleportLocation.destination, True) then
+      if WaitUntil(Chat.ClickOption(teleportLocation.destination, False, [CHAT_COLOR_BLACK]), 200, 5000) then
         Exit(True);
     end;
   end;
@@ -124,13 +140,14 @@ begin
   begin
     WriteLn('Opening Bank');
     Bank.WalkOpen();
+    WriteLn('Withdrawing', chargedJewellery);
     if WaitUntil(self.Withdraw([chargedJewellery, 1, False]), 200, 5000) then
     begin
       WaitUntil(Bank.Close(True), 200, 5000);
       WriteLn("Clicking ", chargedJewellery, " Rub from Inventory");
-      Inventory.ClickItem(chargedJewellery, "Rub");
+      WaitUntil(Inventory.ClickItem(chargedJewellery, "Rub"), 200, 5000);
       WriteLn("Clicking ", teleportLocation.destination);
-      if WaitUntil(Chat.ClickOption(teleportLocation.destination, True), 200, 5000) then
+      if WaitUntil(Chat.ClickOption(teleportLocation.destination, False, [CHAT_COLOR_BLACK]), 200, 5000) then
         Exit(True);
     end;
   end;
@@ -141,7 +158,7 @@ var
   teleportTabName: String := teleportLocation.destination.Lower() + " teleport";
 begin
   WriteLn 'Looking for ' + teleportTabName;
-  if Inventory.ClickItem(teleportTabName) then
+  if WaitUntil(Inventory.ClickItem(teleportTabName), 200, 5000) then
     Exit(True);
 
   WriteLn('Opening Bank');
@@ -150,28 +167,70 @@ begin
   begin
     WaitUntil(Bank.Close(True), 200, 5000);
     WriteLn("Clicking ", teleportTabName);
-    if Inventory.ClickItem(teleportTabName) then
+    if WaitUntil(Inventory.ClickItem(teleportTabName), 200, 5000) then
       Exit(True);
   end;
 end;
 
+function TUniversalTransport.handleFairyRingTeleport(teleportLocation: TTeleportLocation): Boolean;
+var
+  scrollBarWidth: Int32 := 36;
+  travelLogRectWidth: Int32 := 40;
+  scrollBar: TBox := Box(
+    logout.bounds.X2 - scrollBarWidth,
+    logout.bounds.Y1,
+    logout.bounds.X2,
+    logout.bounds.Y2
+  );
+  travelLog: TBox := Box(
+    logout.bounds.x1,
+    logout.bounds.Y1 + travelLogRectWidth,
+    logout.bounds.X2 - scrollBarWidth,
+    logout.bounds.Y2
+  );
+  currentWorldBox: TBox := Box(
+    logout.Bounds.X1,
+    logout.Bounds.Y1,
+    logout.Bounds.X2,
+    logout.Bounds.Y1+24
+  );
+  fairyCodeBox: TBox;
+  tempBox: TBox;
+begin
+  //OCR.LocateText(travelLog, teleportLocation.destination, RS_FONT_PLAIN_12, TOCRColorRule.Create([4145151, 1]), fairyCodeBox);
+  Mouse.move(travelLog, True);
+  Mouse.scroll(20, False);
+  repeat
+    tempBox := fairyCodeBox;
+    OCR.LocateText(travelLog, 'D L R', RS_FONT_PLAIN_12, TOCRColorRule.Create([4145151, 8355839]), fairyCodeBox);
+    Mouse.move(travelLog, True);
+    Mouse.scroll(Random(1, 3), True);
+  until not (tempBox = fairyCodeBox);
+
+  Debug(fairyCodeBox);
+  //Debug(travelLog);
+//
+//  OCR.Recognize(
+//  OCR.LocateText(travelLog, 'A I R', TFontSet.
+end;
+
 function TUniversalTransport.genericJewelleryBankTeleport(): Boolean;
 begin
-  if Equipment.ContainsAny(getChargedJewelleryNames('Ring of Wealth')) then
+  if WaitUntil(Equipment.ContainsAny(getChargedJewelleryNames('Ring of Wealth')), 200, 5000) then
     Result := self.run(RSTeleports.GRAND_EXCHANGE.worldPoint)
-  else if Equipment.ContainsAny(getChargedJewelleryNames('Ring of Dueling')) then
+  else if WaitUntil(Equipment.ContainsAny(getChargedJewelleryNames('Ring of Dueling')), 200, 5000) then
     Result := self.run(RSTeleports.CASTLE_WARS.worldPoint)
-  else if Equipment.ContainsAny(getChargedJewelleryNames('Amulet of Glory')) then
+  else if WaitUntil(Equipment.ContainsAny(getChargedJewelleryNames('Amulet of Glory')), 200, 5000) then
     Result := self.run(RSTeleports.EDGEVILLE.worldPoint)
-  else if Equipment.ContainsAny(getChargedJewelleryNames('Games Necklace')) then
+  else if WaitUntil(Equipment.ContainsAny(getChargedJewelleryNames('Games Necklace')), 200, 5000) then
     Result := self.run(RSTeleports.WINTERTODT_CAMP.worldPoint)
-  else if Inventory.ContainsAny(getChargedJewelleryNames('Ring of Wealth')) then
+  else if WaitUntil(Inventory.ContainsAny(getChargedJewelleryNames('Ring of Wealth')), 200, 5000) then
     Result := self.run(RSTeleports.GRAND_EXCHANGE.worldPoint)
-  else if Inventory.ContainsAny(getChargedJewelleryNames('Ring of Dueling')) then
+  else if WaitUntil(Inventory.ContainsAny(getChargedJewelleryNames('Ring of Dueling')), 200, 5000) then
     Result := self.run(RSTeleports.CASTLE_WARS.worldPoint)
-  else if Inventory.ContainsAny(getChargedJewelleryNames('Amulet of Glory')) then
+  else if WaitUntil(Inventory.ContainsAny(getChargedJewelleryNames('Amulet of Glory')), 200, 5000) then
     Result := self.run(RSTeleports.EDGEVILLE.worldPoint)
-  else if Inventory.ContainsAny(getChargedJewelleryNames('Games Necklace')) then
+  else if WaitUntil(Inventory.ContainsAny(getChargedJewelleryNames('Games Necklace')), 200, 5000) then
     Result := self.run(RSTeleports.WINTERTODT_CAMP.worldPoint);
 end;
 
@@ -188,6 +247,6 @@ begin
     Result := self.run(RSTeleports.GRAND_EXCHANGE.worldPoint);
 end;
 
-
 var 
   Transport: TUniversalTransport;
+
