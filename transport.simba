@@ -4,7 +4,7 @@
 {$I SRL-T/osr.simba}
 {$I WaspLib/osr.simba}
 
-{.$include_once ./records.simba}
+{$include_once ./records.simba}
 {$include_once ./RSTeleports.simba}
 
 type
