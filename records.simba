@@ -1,13 +1,19 @@
-{$include_once WaspLib/osr.simba}
-
+{$IFNDEF WL_OSR}
+  {$I WaspLib/osr.simba}
+{$ENDIF}
 type
   TItemAmount = record
-      name: String;
-      amount: Int32;
-    end;
-  TItemAmountArray = array of TItemAmount;
+    name: String;
+    amount: Int32;
+  end;
+
+  TScriptRecipeItem = record (TItemAmount)
+    maxToPurchase, minToPurchase: Int32;
+  end;
+
+  TScriptRecipeItemArray = array of TScriptRecipeItem;
   TScriptRecipe = record
-    items: TItemAmountArray;
+    items: TScriptRecipeItemArray;
     msPerAction, actions, levelRequired: Int32;
     skill: ERSSkill;
     product: String;
@@ -19,7 +25,8 @@ type
     recipes: TScriptRecipeArray;
     startLocation: TPoint;
     skill: ERSSkill;
-    maxToPurchase, minToPurchase: Int32;
+    gearRequired: TRSItemArray;
+    questsRequired: TStringArray;
   end;
 
 function TSkunkScript.getIdealRecipe(): TScriptRecipe;
